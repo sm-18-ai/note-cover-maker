@@ -1,0 +1,1526 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Noto Sans JP",
+        sans-serif;
+
+    background: #f6f5f2;
+    color: #333;
+
+    overflow: hidden;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.app-header {
+    height: 64px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 28px;
+
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.app-title {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.app-title-main {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+}
+
+.app-title-version {
+    font-size: 10px;
+    color: #999;
+}
+
+.header-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.header-actions button {
+    border: 1px solid #ddd;
+    background: #fff;
+
+    padding: 8px 12px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+}
+
+.header-actions button:hover {
+    background: #f4f4f4;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.app-main {
+    width: 100%;
+    height: calc(100vh - 64px);
+}
+
+
+/* =========================
+   STEP NAV
+========================= */
+
+.step-navigation {
+    height: 72px;
+
+    display: flex;
+    align-items: stretch;
+
+    padding: 0 30px;
+
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.step-button {
+    position: relative;
+
+    min-width: 105px;
+
+    border: 0;
+    border-bottom: 2px solid transparent;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 4px;
+
+    color: #999;
+}
+
+.step-button:hover {
+    color: #555;
+}
+
+.step-button.active {
+    color: #333;
+    border-bottom-color: #333;
+}
+
+.step-number {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+}
+
+.step-name {
+    font-size: 12px;
+}
+
+
+/* =========================
+   STEP 1
+========================= */
+
+.step-panel {
+    display: none;
+
+    width: min(900px, calc(100% - 60px));
+
+    margin: 0 auto;
+
+    padding-top: 70px;
+}
+
+.step-panel.active {
+    display: block;
+}
+
+.step-heading {
+    margin-bottom: 40px;
+}
+
+.step-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: #999;
+}
+
+.step-heading h1 {
+    margin: 8px 0;
+    font-size: 28px;
+    font-weight: 500;
+}
+
+.step-heading p {
+    margin: 0;
+    color: #888;
+    font-size: 13px;
+}
+
+
+/* =========================
+   SIZE
+========================= */
+
+.size-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 14px;
+}
+
+.size-card {
+    min-height: 120px;
+
+    padding: 20px;
+
+    border: 1px solid #ddd;
+    border-radius: 10px;
+
+    background: #fff;
+
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    transition: 0.15s;
+}
+
+.size-card:hover {
+    border-color: #999;
+    transform: translateY(-1px);
+}
+
+.size-card.selected {
+    border-color: #333;
+    box-shadow:
+        0 0 0 1px #333;
+}
+
+.size-card strong {
+    font-size: 19px;
+    font-weight: 500;
+}
+
+.size-card span {
+    margin-top: 7px;
+    font-size: 11px;
+    color: #999;
+}
+
+.custom-size-card {
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-size-card strong {
+    font-size: 24px;
+    color: #888;
+}
+
+
+/* =========================
+   SELECTED SIZE
+========================= */
+
+.selected-size {
+    margin-top: 24px;
+
+    padding: 16px 18px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: #fff;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.selected-size span {
+    font-size: 12px;
+    color: #999;
+}
+
+.selected-size strong {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+
+/* =========================
+   NEXT
+========================= */
+
+.next-button {
+    margin-top: 30px;
+
+    padding: 13px 22px;
+
+    border: 0;
+    border-radius: 7px;
+
+    background: #333;
+    color: #fff;
+
+    font-size: 13px;
+
+    cursor: pointer;
+}
+
+.next-button:hover {
+    background: #222;
+}
+
+.next-button span {
+    margin-left: 12px;
+}
+
+
+/* =========================
+   EDITOR
+========================= */
+
+.editor-screen {
+    display: none;
+
+    width: 100%;
+    height: calc(
+        100vh - 136px
+    );
+
+    grid-template-columns:
+        280px
+        minmax(400px, 1fr)
+        280px;
+}
+
+.editor-screen.active {
+    display: grid;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.editor-sidebar {
+    background: #fff;
+
+    overflow-y: auto;
+}
+
+.left-sidebar {
+    border-right: 1px solid #ddd;
+}
+
+.right-sidebar {
+    border-left: 1px solid #ddd;
+}
+
+.editor-step-panel {
+    display: none;
+    padding: 24px 20px;
+}
+
+.editor-step-panel.active {
+    display: block;
+}
+
+.properties-panel {
+    padding: 24px 20px;
+}
+
+.panel-heading span {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: #aaa;
+}
+
+.panel-heading h2 {
+    margin: 5px 0 22px;
+
+    font-size: 18px;
+    font-weight: 500;
+}
+
+
+/* =========================
+   CREATION MODE
+========================= */
+
+.creation-mode {
+    display: flex;
+
+    margin-bottom: 18px;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.mode-button {
+    flex: 1;
+
+    padding: 10px 5px;
+
+    border: 0;
+    border-bottom: 2px solid transparent;
+
+    background: transparent;
+
+    font-size: 11px;
+
+    color: #999;
+
+    cursor: pointer;
+}
+
+.mode-button.active {
+    color: #333;
+    border-bottom-color: #333;
+}
+
+.mode-content {
+    display: none;
+}
+
+.mode-content.active {
+    display: block;
+}
+
+.content-description {
+    font-size: 11px;
+    color: #999;
+    line-height: 1.7;
+}
+
+
+/* =========================
+   CATEGORIES
+========================= */
+
+.frame-categories {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 6px;
+
+    margin-bottom: 15px;
+}
+
+.frame-category {
+    padding: 9px 5px;
+
+    border: 1px solid #ddd;
+    border-radius: 6px;
+
+    background: #fff;
+
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+.frame-category:hover {
+    background: #f5f5f5;
+}
+
+.frame-category.active {
+    background: #333;
+    color: #fff;
+    border-color: #333;
+}
+
+
+/* =========================
+   MATERIAL
+========================= */
+
+.material-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 8px;
+}
+
+.empty-message {
+    grid-column: 1 / -1;
+
+    margin: 20px 0;
+
+    text-align: center;
+
+    font-size: 11px;
+    color: #aaa;
+}
+
+.frame-material {
+    padding: 5px;
+
+    border: 1px solid #ddd;
+    border-radius: 6px;
+
+    background: #fff;
+
+    cursor: pointer;
+}
+
+.frame-material:hover {
+    border-color: #888;
+}
+
+.frame-material img {
+    display: block;
+
+    width: 100%;
+    aspect-ratio: 1 / 1;
+
+    object-fit: contain;
+
+    background: #f5f5f5;
+}
+
+.frame-material span {
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 9px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* =========================
+   CANVAS AREA
+========================= */
+
+.editor-center {
+    position: relative;
+
+    min-width: 0;
+
+    background: #eae9e6;
+
+    overflow: auto;
+
+    padding: 30px;
+}
+
+.canvas-area {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.canvas-wrapper {
+    height: calc(100vh - 210px);
+    width: auto;
+
+    aspect-ratio: 148 / 210;
+
+    display: flex;
+    flex-shrink: 0;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+#cover-canvas {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    background: #fff;
+}
+
+#canvas-background {
+    fill: transparent;
+}
+
+/* =========================
+   OBJECT
+========================= */
+
+.frame-object,
+.canvas-object {
+    cursor: move;
+}
+
+.frame-object.selected-frame,
+.canvas-object.selected-object {
+    outline: 2px solid #333;
+    outline-offset: 2px;
+}
+
+
+/* =========================
+   FLOATING TOOLBAR
+========================= */
+
+.floating-toolbar {
+    display: none;
+
+    position: absolute;
+
+    top: 16px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    padding: 5px;
+
+    background: #fff;
+
+    border: 1px solid #ddd;
+    border-radius: 7px;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.08);
+
+    gap: 3px;
+}
+
+.floating-toolbar.active {
+    display: flex;
+}
+
+.floating-toolbar button {
+    border: 0;
+
+    padding: 7px 10px;
+
+    background: transparent;
+
+    font-size: 11px;
+
+    cursor: pointer;
+
+    border-radius: 4px;
+}
+
+.floating-toolbar button:hover {
+    background: #f0f0f0;
+}
+
+
+/* =========================
+   LAYERS
+========================= */
+
+.layer-panel {
+    width: min(100%, 620px);
+
+    margin: 20px auto 0;
+
+    padding: 14px;
+
+    background: #fff;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.layer-panel-header {
+    margin-bottom: 10px;
+}
+
+.layer-panel-header h3 {
+    margin: 0;
+
+    font-size: 11px;
+
+    letter-spacing: 0.1em;
+
+    color: #777;
+}
+
+.layer-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+
+    max-height: 170px;
+
+    overflow-y: auto;
+}
+
+.empty-layer-message {
+    margin: 8px 0;
+
+    text-align: center;
+
+    font-size: 11px;
+
+    color: #aaa;
+}
+
+.layer-item {
+    width: 100%;
+    min-height: 34px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 6px 8px;
+
+    border: 1px solid transparent;
+    border-radius: 5px;
+
+    background: #f6f6f6;
+
+    text-align: left;
+
+    cursor: pointer;
+}
+
+.layer-item:hover {
+    background: #eee;
+}
+
+.layer-item.selected-layer {
+    border-color: #333;
+    background: #f3f1ed;
+}
+
+.layer-visibility {
+    font-size: 11px;
+}
+
+.layer-name {
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+    font-size: 10px;
+}
+
+
+/* =========================
+   PROPERTIES
+========================= */
+
+.empty-properties {
+    margin-top: 30px;
+
+    text-align: center;
+
+    font-size: 11px;
+
+    line-height: 1.8;
+
+    color: #aaa;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1000;
+
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-box {
+    width: 340px;
+
+    padding: 25px;
+
+    background: #fff;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 15px 50px rgba(0, 0, 0, 0.15);
+}
+
+.modal-heading span {
+    font-size: 9px;
+
+    letter-spacing: 0.15em;
+
+    color: #aaa;
+}
+
+.modal-heading h2 {
+    margin: 5px 0 25px;
+
+    font-size: 18px;
+
+    font-weight: 500;
+}
+
+.modal-box label {
+    display: block;
+
+    margin-bottom: 15px;
+
+    font-size: 11px;
+
+    color: #666;
+}
+
+.modal-box input,
+.modal-box select {
+    width: 100%;
+
+    margin-top: 6px;
+
+    padding: 9px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 5px;
+
+    background: #fff;
+}
+
+.modal-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 7px;
+
+    margin-top: 20px;
+}
+
+.modal-actions button {
+    padding: 9px 14px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 5px;
+
+    background: #fff;
+
+    cursor: pointer;
+}
+
+.modal-actions button:last-child {
+    background: #333;
+    color: #fff;
+    border-color: #333;
+}
+
+
+/* =========================
+   RESIZE HANDLES
+========================= */
+
+.resize-handle {
+    fill: #fff;
+    stroke: #333;
+    stroke-width: 0.8;
+
+    cursor: pointer;
+}
+
+.resize-handle[data-handle="nw"],
+.resize-handle[data-handle="se"] {
+    cursor: nwse-resize;
+}
+
+.resize-handle[data-handle="ne"],
+.resize-handle[data-handle="sw"] {
+    cursor: nesw-resize;
+}
+
+/* ==================================================
+   STEP 03 : BACKGROUND
+================================================== */
+
+.background-section {
+    margin-top: 5px;
+}
+
+
+/* =========================
+   BACKGROUND TYPE
+========================= */
+
+.background-type {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    margin: 18px 0;
+}
+
+.background-type-button {
+    padding: 9px 4px;
+
+    border: 1px solid #ddd;
+    border-radius: 6px;
+
+    background: #fff;
+
+    font-size: 10px;
+    color: #888;
+
+    cursor: pointer;
+}
+
+.background-type-button:hover {
+    background: #f5f5f5;
+}
+
+.background-type-button.active {
+    background: #333;
+    color: #fff;
+    border-color: #333;
+}
+
+
+/* =========================
+   BACKGROUND CONTENT
+========================= */
+
+.background-content {
+    display: none;
+}
+
+.background-content.active {
+    display: block;
+}
+
+
+/* =========================
+   COLOR PICKER
+========================= */
+
+.color-picker-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    min-height: 42px;
+
+    margin-bottom: 10px;
+    padding: 8px 10px;
+
+    border: 1px solid #ddd;
+    border-radius: 6px;
+
+    background: #fff;
+
+    font-size: 11px;
+    color: #666;
+}
+
+.color-picker-row input[type="color"] {
+    width: 42px;
+    height: 28px;
+
+    padding: 2px;
+
+    border: 1px solid #ddd;
+    border-radius: 4px;
+
+    background: #fff;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   GRADIENT ANGLE
+========================= */
+
+.background-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 15px;
+
+    font-size: 11px;
+    color: #666;
+}
+
+.background-control input[type="range"] {
+    flex: 1;
+}
+
+#gradient-angle-value {
+    width: 35px;
+
+    text-align: right;
+
+    font-size: 10px;
+    color: #999;
+}
+
+
+/* =========================
+   IMAGE UPLOAD
+========================= */
+
+.background-upload {
+    display: block;
+
+    padding: 20px 10px;
+
+    border: 1px dashed #ccc;
+    border-radius: 7px;
+
+    background: #fafafa;
+
+    text-align: center;
+
+    font-size: 11px;
+    color: #777;
+
+    cursor: pointer;
+}
+
+.background-upload:hover {
+    border-color: #888;
+    background: #f5f5f5;
+}
+
+.background-upload {
+    display: block;
+    padding: 20px 10px;
+    border: 1px dashed #ccc;
+    border-radius: 7px;
+    background: #fafafa;
+    text-align: center;
+    font-size: 11px;
+    color: #777;
+}
+
+.background-upload label {
+    display: block;
+    cursor: pointer;
+}
+
+.background-upload input[type="file"] {
+    margin-top: 10px;
+}
+
+.background-note {
+    margin-top: 8px;
+
+    font-size: 9px;
+    line-height: 1.6;
+
+    color: #aaa;
+}
+
+.rotate-handle {
+    fill: #ffffff;
+    stroke: #222222;
+    stroke-width: 0.8;
+    cursor: grab;
+}
+
+.rotate-handle:active {
+    cursor: grabbing;
+}
+
+/* ==================================================
+   PROPERTIES PANEL
+================================================== */
+
+.properties-content {
+    width: 100%;
+}
+
+.property-title {
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+
+.property-row {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.property-row span:first-child {
+    font-size: 14px;
+}
+
+.property-row input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 32px;
+    padding: 4px 8px;
+    border: 1px solid #999;
+    border-radius: 2px;
+    font-size: 14px;
+}
+
+.property-row > span:last-child {
+    font-size: 14px;
+    min-width: 12px;
+}
+
+.properties-content hr {
+    margin: 0 0 16px;
+    border: 0;
+    border-top: 1px solid #999;
+}
+
+.empty-properties {
+    line-height: 1.8;
+}
+
+
+/* ==================================================
+   FINISH PANEL
+================================================== */
+
+.finish-content {
+    width: 100%;
+}
+
+.finish-description {
+    line-height: 1.8;
+    margin-bottom: 24px;
+}
+
+.finish-section {
+    margin-bottom: 28px;
+}
+
+.finish-section h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #999;
+}
+
+.finish-layer-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 40px;
+    border-bottom: 1px solid #ddd;
+}
+
+.finish-layer-item.active {
+    background: #f0eee8;
+}
+
+.finish-layer-visibility {
+    width: 40px;
+    height: 36px;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.finish-layer-name {
+    flex: 1;
+    height: 36px;
+    padding: 0 8px;
+    border: 0;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.finish-layer-name:hover {
+    text-decoration: underline;
+}
+
+.finish-empty {
+    color: #777;
+    line-height: 1.8;
+}
+
+#finish-selected-info {
+    line-height: 1.8;
+    margin: 0;
+}
+
+
+/* ==================================================
+   STEP 06 : EXPORT
+================================================== */
+
+.export-content {
+    width: 100%;
+}
+
+.export-preview {
+    width: 100%;
+    margin: 20px 0 28px;
+    padding: 15px;
+    box-sizing: border-box;
+    background: #f3f3f3;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+#export-preview-canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    background: #fff;
+}
+
+.export-section {
+    margin-bottom: 24px;
+}
+
+.export-section h3 {
+    margin: 0 0 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.export-button {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    background: #333;
+    color: #fff;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.export-button:hover {
+    background: #222;
+}
+
+.export-button.secondary {
+    background: #fff;
+    color: #333;
+}
+
+.export-button.secondary:hover {
+    background: #f5f5f5;
+}
+
+
+.load-project-label {
+    display: block;
+    box-sizing: border-box;
+    margin-top: 8px;
+    text-align: center;
+    text-decoration: none;
+}
+
+
+/* ==================================================
+   BACKGROUND MATERIALS
+================================================== */
+
+.background-category-list {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.background-category-button {
+    padding: 7px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.background-category-button.active {
+    background: #333;
+    color: #fff;
+}
+
+.background-material-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.background-material {
+    padding: 0;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+    overflow: hidden;
+    cursor: pointer;
+    aspect-ratio: 3 / 4;
+}
+
+.background-material img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.background-material:hover {
+    border-color: #777;
+}
+
+.background-load-more {
+    width: 100%;
+    margin-top: 12px;
+    padding: 9px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+}
+
+/* =========================
+   BACKGROUND IMAGE EDITOR
+========================= */
+.background-image-editor {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e5e5;
+}
+
+.background-image-editor-title {
+    margin-bottom: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #333;
+}
+
+.background-image-editor label {
+    display: grid;
+    grid-template-columns: 65px minmax(0, 1fr) 35px;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: #555;
+}
+
+.background-image-editor-label {
+    white-space: nowrap;
+}
+
+.background-image-editor input[type="range"] {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    margin: 0;
+    cursor: pointer;
+}
+
+.background-image-editor label > span:last-child {
+    text-align: right;
+    font-size: 10px;
+    color: #888;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+/* 背景パネルをスクロール可能にする */
+#background-panel {
+    overflow-y: auto;
+}
+
+#background-image-content {
+    padding-bottom: 30px;
+}
+
+#background-image-editor {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ==================================================
+   BACKGROUND MATERIALS
+================================================== */
+
+.background-category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.background-category-button {
+    padding: 7px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    color: #555;
+    font-size: 11px;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+.background-category-button:hover {
+    background: #f7f7f7;
+}
+
+.background-category-button.active {
+    background: #333;
+    border-color: #333;
+    color: #fff;
+}
+
+.background-material-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.background-material {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.background-material:hover {
+    border-color: #999;
+}
+
+.background-material img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.background-load-more {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+    padding: 9px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    color: #555;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.background-load-more:hover {
+    background: #f7f7f7;
+}
+
+.empty-message {
+    margin: 10px 0;
+    color: #999;
+    font-size: 11px;
+    text-align: center;
+}
+
+.background-material.selected {
+    border: 2px solid #333;
+    box-shadow: 0 0 0 1px #333;
+}
+
+/* ==================================================
+   FRAME : 色調調整
+================================================== */
+
+.frame-adjustment-panel {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.frame-adjustment-panel .adjustment-row {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.frame-adjustment-panel .adjustment-row label {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+.frame-adjustment-panel .adjustment-row label span {
+    display: inline-block;
+    width: 45px;
+    min-width: 45px;
+    margin-left: 4px;
+}
+
+.frame-adjustment-panel .adjustment-row input[type="range"] {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}

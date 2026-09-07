@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NOTE COVER MAKER V2</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .background-type{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:16px 0}
+        .background-type-button{border:1px solid #ddd;background:#fff;border-radius:8px;padding:9px 4px;cursor:pointer;font-size:12px}
+        .background-type-button.active{background:#222;color:#fff;border-color:#222}
+        .background-content{display:none}.background-content.active{display:block}
+        .color-picker-row,.background-control{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;margin:14px 0;font-size:12px}
+        .color-picker-row input[type=color]{width:44px;height:32px;padding:2px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer}
+        .background-control{grid-template-columns:auto 1fr auto}.background-control input[type=range]{width:100%}
+        .background-upload{display:block;border:1px dashed #ccc;border-radius:8px;padding:18px 10px;text-align:center;cursor:pointer;font-size:12px}
+        .background-upload input{display:none}.background-note{font-size:10px;color:#888;margin-top:8px}
+    </style>
+
+</head>
+
+<body>
+
+<header class="app-header">
+    <div class="app-title">
+        <span class="app-title-main">NOTE COVER MAKER</span>
+        <span class="app-title-version">V2</span>
+    </div>
+
+    <div class="header-actions">
+        <button type="button" id="undo-button">↶</button>
+        <button type="button" id="redo-button">↷</button>
+        <button type="button" id="save-button">保存</button>
+    </div>
+</header>
+
+
+<main class="app-main">
+
+ <!-- STEP NAVIGATION -->
+    <nav class="step-navigation">
+
+    <button
+        type="button"
+        class="step-button active"
+        data-step="1"
+    >
+        <span class="step-number">01</span>
+        <span class="step-name">サイズ</span>
+    </button>
+
+    <button
+        type="button"
+        class="step-button"
+        data-step="2"
+    >
+        <span class="step-number">02</span>
+        <span class="step-name">フレーム</span>
+    </button>
+
+    <button
+        type="button"
+        class="step-button"
+        data-step="3"
+    >
+        <span class="step-number">03</span>
+        <span class="step-name">背景</span>
+    </button>
+
+    <button
+        type="button"
+        class="step-button"
+        data-step="4"
+    >
+        <span class="step-number">04</span>
+        <span class="step-name">タイトル</span>
+    </button>
+
+    <button
+        type="button"
+        class="step-button"
+        data-step="5"
+    >
+        <span class="step-number">05</span>
+        <span class="step-name">仕上げ</span>
+    </button>
+
+    <button
+        type="button"
+        class="step-button"
+        data-step="6"
+    >
+        <span class="step-number">06</span>
+        <span class="step-name">書き出し</span>
+    </button>
+
+</nav>
+
+
+    <!-- =========================
+         STEP 1
+    ========================== -->
+
+    <section
+        class="step-panel active"
+        id="step-1-panel"
+        data-step-panel="1"
+    >
+
+        <div class="step-heading">
+            <span class="step-label">STEP 01</span>
+            <h1>ノートサイズを選択</h1>
+            <p>作成する表紙のサイズを選んでください。</p>
+        </div>
+
+
+        <div class="size-grid">
+
+            <button
+                type="button"
+                class="size-card"
+                data-width="148"
+                data-height="210"
+                data-unit="mm"
+            >
+                <strong>A5</strong>
+                <span>148 × 210 mm</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="size-card"
+                data-width="210"
+                data-height="297"
+                data-unit="mm"
+            >
+                <strong>A4</strong>
+                <span>210 × 297 mm</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="size-card"
+                data-width="182"
+                data-height="257"
+                data-unit="mm"
+            >
+                <strong>B5</strong>
+                <span>182 × 257 mm</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="size-card"
+                data-width="182"
+                data-height="257"
+                data-unit="mm"
+            >
+                <strong>大学ノート</strong>
+                <span>182 × 257 mm</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="size-card"
+                data-width="2048"
+                data-height="2732"
+                data-unit="px"
+            >
+                <strong>GoodNotes</strong>
+                <span>2048 × 2732 px</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="size-card custom-size-card"
+                id="custom-size-button"
+            >
+                <strong>＋</strong>
+                <span>カスタムサイズ</span>
+            </button>
+
+        </div>
+
+
+        <div class="selected-size">
+            <span>現在のサイズ</span>
+
+            <strong id="selected-size-info">
+                A5　148 × 210 mm
+            </strong>
+        </div>
+
+
+        <button
+            type="button"
+            class="next-button"
+            id="to-step-2"
+        >
+            フレームを選ぶ
+            <span>→</span>
+        </button>
+
+    </section>
+
+
+
+    <!-- =========================
+         EDITOR
+    ========================== -->
+
+    <section
+        class="editor-screen"
+        id="editor-screen"
+    >
+
+        <!-- LEFT -->
+        <aside class="editor-sidebar left-sidebar">
+
+            <div
+                class="editor-step-panel active"
+                id="frame-panel"
+            >
+
+                <div class="panel-heading">
+                    <span>STEP 02</span>
+                    <h2>フレーム</h2>
+                </div>
+
+
+                <div class="creation-mode">
+
+                    <button
+                        type="button"
+                        class="mode-button active"
+                        data-mode="template"
+                    >
+                        テンプレートから作る
+                    </button>
+
+                    <button
+                        type="button"
+                        class="mode-button"
+                        data-mode="parts"
+                    >
+                        パーツから作る
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="mode-content active"
+                    id="template-content"
+                >
+
+                    <p class="content-description">
+                        完成したデザインを選択してください。
+                    </p>
+
+                    <div id="template-options" class="material-grid">
+                        <p class="empty-message">
+                            テンプレートはここに表示されます。
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="mode-content"
+                    id="parts-content"
+                >
+
+                   <div class="frame-categories">
+
+                    <button
+                        type="button"
+                        class="frame-category active"
+                        data-category="band"
+                    >
+                        Band
+                    </button>
+
+                    <button
+                        type="button"
+                        class="frame-category"
+                        data-category="borders"
+                    >
+                        外枠
+                    </button>
+
+                    <button
+                        type="button"
+                        class="frame-category"
+                        data-category="labels"
+                    >
+                        ラベル
+                    </button>
+
+                    <button
+                        type="button"
+                        class="frame-category"
+                        data-category="lines"
+                    >
+                        Line
+                    </button>
+
+                    <button
+                        type="button"
+                        class="frame-category"
+                        data-category="logos"
+                    >
+                        ロゴ
+                    </button>
+
+                    <button
+                        type="button"
+                        class="frame-category"
+                        data-category="part"
+                    >
+                        Part
+                    </button>
+
+                    <button
+                        type="button"
+                        class="frame-category"
+                        data-category="partfull"
+                    >
+                        Part Full
+                    </button>
+
+                    <button
+                        type="button"
+                        class="frame-category"
+                        data-category="spine"
+                    >
+                        背表紙
+                    </button>
+
+                </div>
+
+
+                    <div
+                        id="frame-options"
+                        class="material-grid"
+                    >
+                        <p class="empty-message">
+                            素材はここに表示されます。
+                        </p>
+                    </div>
+                <div class="frame-adjustment-panel">
+
+    <div class="adjustment-title">色調調整</div>
+
+    <div class="adjustment-row">
+        <label>
+            明るさ
+            <span id="frame-brightness-value">100%</span>
+        </label>
+        <input
+            type="range"
+            id="frame-brightness"
+            min="0"
+            max="200"
+            value="100"
+        >
+    </div>
+
+        <div class="adjustment-row">
+            <label>
+                コントラスト
+                <span id="frame-contrast-value">100%</span>
+            </label>
+            <input
+                type="range"
+                id="frame-contrast"
+                min="0"
+                max="200"
+                value="100"
+            >
+        </div>
+
+        <div class="adjustment-row">
+            <label>
+                彩度
+                <span id="frame-saturation-value">100%</span>
+            </label>
+            <input
+                type="range"
+                id="frame-saturation"
+                min="0"
+                max="200"
+                value="100"
+            >
+        </div>
+
+        <div class="adjustment-row">
+            <label>
+                セピア
+                <span id="frame-sepia-value">0%</span>
+            </label>
+            <input
+                type="range"
+                id="frame-sepia"
+                min="0"
+                max="100"
+                value="0"
+            >
+        </div>
+
+        <div class="adjustment-row">
+            <label>
+                色相
+                <span id="frame-hue-value">0°</span>
+            </label>
+            <input
+                type="range"
+                id="frame-hue"
+                min="-180"
+                max="180"
+                value="0"
+            >
+        </div>
+
+    </div>
+                </div>
+
+            </div>
+
+
+            <!-- STEP 03 : BACKGROUND -->
+            <div class="editor-step-panel" id="background-panel">
+                <div class="panel-heading">
+                    <span>STEP 03</span>
+                    <h2>背景</h2>
+                </div>
+
+  <div class="background-section">
+
+    <p class="content-description">
+        表紙の背景を設定してください。
+    </p>
+
+    <div class="background-type">
+        <button
+            type="button"
+            class="background-type-button active"
+            data-background-type="color"
+        >
+            単色
+        </button>
+
+        <button
+            type="button"
+            class="background-type-button"
+            data-background-type="gradient"
+        >
+            グラデーション
+        </button>
+
+        <button
+            type="button"
+            class="background-type-button"
+            data-background-type="image"
+        >
+            画像
+        </button>
+    </div>
+
+
+    <!-- =========================
+         単色
+    ========================== -->
+    <div
+        class="background-content active"
+        id="background-color-content"
+    >
+
+        <label class="color-picker-row">
+            <span>背景色</span>
+
+            <input
+                type="color"
+                id="background-color"
+                value="#FFFFFF"
+            >
+        </label>
+
+    </div>
+
+
+    <!-- =========================
+         グラデーション
+    ========================== -->
+    <div
+        class="background-content"
+        id="background-gradient-content"
+    >
+
+        <label class="color-picker-row">
+            <span>カラー 1</span>
+
+            <input
+                type="color"
+                id="gradient-color-1"
+                value="#FFFFFF"
+            >
+        </label>
+
+        <label class="color-picker-row">
+            <span>カラー 2</span>
+
+            <input
+                type="color"
+                id="gradient-color-2"
+                value="#E8E3D8"
+            >
+        </label>
+
+        <label class="background-control">
+            <span>角度</span>
+
+            <input
+                type="range"
+                id="gradient-angle"
+                min="0"
+                max="360"
+                value="90"
+            >
+
+            <span id="gradient-angle-value">
+                90°
+            </span>
+        </label>
+
+    </div>
+
+
+    <!-- =========================
+         登録背景・自分の画像
+    ========================== -->
+    <div
+        class="background-content"
+        id="background-image-content"
+    >
+
+        <div class="background-image-editor">
+
+        <div class="background-image-editor-title">
+            画像調整
+        </div>
+
+        <label class="background-control">
+            <span>大きさ</span>
+            <input
+                type="range"
+                id="background-scale"
+                min="25"
+                max="300"
+                value="100"
+            >
+            <span id="background-scale-value">100%</span>
+        </label>
+
+        <label class="background-control">
+            <span>横位置</span>
+            <input
+                type="range"
+                id="background-position-x"
+                min="-200"
+                max="200"
+                value="0"
+            >
+            <span id="background-position-x-value">0</span>
+        </label>
+
+        <label class="background-control">
+            <span>縦位置</span>
+            <input
+                type="range"
+                id="background-position-y"
+                min="-200"
+                max="200"
+                value="0"
+            >
+            <span id="background-position-y-value">0</span>
+        </label>
+
+        <label class="background-control">
+            <span>明るさ</span>
+            <input
+                type="range"
+                id="background-brightness"
+                min="0"
+                max="200"
+                value="100"
+            >
+            <span id="background-brightness-value">100%</span>
+        </label>
+
+        <label class="background-control">
+            <span>コントラスト</span>
+            <input
+                type="range"
+                id="background-contrast"
+                min="0"
+                max="200"
+                value="100"
+            >
+            <span id="background-contrast-value">100%</span>
+        </label>
+
+        <label class="background-control">
+            <span>彩度</span>
+            <input
+                type="range"
+                id="background-saturation"
+                min="0"
+                max="200"
+                value="100"
+            >
+            <span id="background-saturation-value">100%</span>
+        </label>
+
+        <label class="background-control">
+            <span>セピア</span>
+            <input
+                type="range"
+                id="background-sepia"
+                min="0"
+                max="100"
+                value="0"
+            >
+            <span id="background-sepia-value">0%</span>
+        </label>
+
+        <label class="background-control">
+            <span>色相</span>
+            <input
+                type="range"
+                id="background-hue"
+                min="-180"
+                max="180"
+                value="0"
+            >
+            <span id="background-hue-value">0°</span>
+        </label>
+
+    </div>
+
+        <div class="background-material-section">
+
+            <h3>登録背景</h3>
+
+            <div id="background-category-list"
+                class="background-category-list">
+            </div>
+
+            <div
+                id="background-material-grid"
+                class="background-material-grid"
+            >
+                <!-- JavaScriptで背景素材を表示 -->
+            </div>
+
+            <button
+                type="button"
+                id="background-load-more"
+                class="background-load-more"
+            >
+                もっと見る
+            </button>
+
+
+        </div>
+
+
+        <div class="background-custom-section">
+
+            <h3>自分の画像を使う</h3>
+
+            <label
+                class="background-upload"
+                for="background-image"
+            >
+                画像を選択
+
+                <input
+                    type="file"
+                    id="background-image"
+                    accept="image/*"
+                >
+            </label>
+
+            <p class="background-note">
+                JPG・PNG・WEBPに対応
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+</div>
+                    <!-- STEP 04 : TITLE -->
+                    <div class="editor-step-panel" id="title-panel">
+
+                    
+                        <div class="panel-heading">
+                            <span>STEP 04</span>
+                            <h2>タイトル</h2>
+                        </div>
+
+                        <div class="title-section">
+
+                            <p class="content-description">
+                                表紙にタイトルを追加してください。
+                            </p>
+
+                            <label class="title-input-row">
+                                <span>タイトル</span>
+                                <input
+                                    type="text"
+                                    id="title-text"
+                                    placeholder="タイトルを入力"
+                                >
+                            </label>
+
+                            <button
+                                type="button"
+                                id="add-title-button"
+                                class="title-add-button"
+                            >
+                                ＋ タイトルを追加
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- STEP 05 : FINISH -->
+<div class="editor-step-panel" id="finish-panel">
+
+    <div class="panel-heading">
+        <span>STEP 05</span>
+        <h2>仕上げ</h2>
+    </div>
+
+    <div class="finish-content">
+
+        <p class="content-description">
+            配置やレイヤーを確認して、
+            表紙を仕上げます。
+        </p>
+
+        <div class="finish-section">
+            <h3>レイヤー</h3>
+
+            <div id="finish-layer-list">
+                <!-- JavaScriptで表示 -->
+            </div>
+        </div>
+
+        <div class="finish-section">
+            <h3>選択中の素材</h3>
+
+            <p id="finish-selected-info">
+                素材を選択してください。
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- STEP 06 : EXPORT -->
+<div class="editor-step-panel" id="export-panel">
+
+    <div class="panel-heading">
+        <span>STEP 06</span>
+        <h2>書き出し</h2>
+    </div>
+
+    <div class="export-content">
+
+        <p class="content-description">
+            完成した表紙を書き出してください。
+        </p>
+
+        <div class="export-preview">
+            <svg
+                id="export-preview-canvas"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <rect
+                    id="export-preview-background"
+                    x="0"
+                    y="0"
+                    width="148"
+                    height="210"
+                ></rect>
+            </svg>
+        </div>
+
+        <div class="export-section">
+
+            <h3>画像として書き出す</h3>
+
+            <button
+                type="button"
+                id="export-png-button"
+                class="export-button"
+            >
+                PNGで書き出す
+            </button>
+
+        </div>
+
+        <div class="export-section">
+
+    <h3>データを保存</h3>
+
+    <button
+        type="button"
+        id="save-project-button"
+        class="export-button"
+    >
+        制作データを保存
+    </button>
+
+    <label
+        for="load-project-input"
+        class="export-button secondary load-project-label"
+    >
+        制作データを読み込む
+    </label>
+
+    <input
+        type="file"
+        id="load-project-input"
+        accept=".json,application/json"
+        hidden
+    >
+
+</div>
+
+        <div class="export-section">
+
+            <h3>新しく作る</h3>
+
+            <button
+                type="button"
+                id="reset-project-button"
+                class="export-button secondary"
+            >
+                最初から作り直す
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+        </aside>
+
+
+        <!-- CENTER -->
+        <section class="editor-center">
+
+            <div class="canvas-area">
+
+                <div
+                    class="canvas-wrapper"
+                    id="canvas-wrapper"
+                >
+
+                    <svg
+                        id="cover-canvas"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 148 210"
+                    >
+
+                        <rect
+                            id="canvas-background"
+                            x="0"
+                            y="0"
+                            width="148"
+                            height="210"
+                        ></rect>
+
+                    </svg>
+
+                </div>
+
+            </div>
+
+
+            <!-- FLOATING TOOLBAR -->
+            <div
+                class="floating-toolbar"
+                id="floating-toolbar"
+            >
+
+                <button type="button" id="bring-front">
+                    ↑ 前面
+                </button>
+
+                <button type="button" id="send-back">
+                    ↓ 背面
+                </button>
+
+                <button type="button" id="duplicate-object">
+                    ⧉ 複製
+                </button>
+
+                <button type="button" id="delete-object">
+                    🗑 削除
+                </button>
+
+            </div>
+
+
+            <!-- LAYERS -->
+            <div class="layer-panel">
+
+                <div class="layer-panel-header">
+                    <h3>LAYERS</h3>
+                </div>
+
+                <div
+                    id="layer-list"
+                    class="layer-list"
+                >
+                    <p class="empty-layer-message">
+                        レイヤーはありません
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RIGHT -->
+        <aside class="editor-sidebar right-sidebar">
+
+            <div class="properties-panel">
+
+                <div class="panel-heading">
+                    <span>PROPERTIES</span>
+                    <h2>設定</h2>
+                </div>
+
+                <div
+                    id="object-properties"
+                    class="object-properties"
+                >
+
+                    <p class="empty-properties">
+                        オブジェクトを選択すると
+                        <br>
+                        設定が表示されます。
+                    </p>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+    </section>
+
+</main>
+
+
+<!-- CUSTOM SIZE MODAL -->
+
+<div
+    class="modal"
+    id="custom-size-modal"
+>
+
+    <div class="modal-box">
+
+        <div class="modal-heading">
+            <span>CUSTOM SIZE</span>
+            <h2>カスタムサイズ</h2>
+        </div>
+
+        <label>
+            幅
+            <input
+                type="number"
+                id="custom-width"
+                min="1"
+            >
+        </label>
+
+        <label>
+            高さ
+            <input
+                type="number"
+                id="custom-height"
+                min="1"
+            >
+        </label>
+
+        <label>
+            単位
+
+            <select id="custom-unit">
+                <option value="mm">mm</option>
+                <option value="px">px</option>
+            </select>
+
+        </label>
+
+        <div class="modal-actions">
+
+            <button
+                type="button"
+                id="custom-cancel"
+            >
+                キャンセル
+            </button>
+
+            <button
+                type="button"
+                id="custom-confirm"
+            >
+                決定
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="js/frame-data.js"></script>
+<script src="js/background-data.js"></script>
+<script src="js/app.js"></script>
